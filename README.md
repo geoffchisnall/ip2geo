@@ -1,4 +1,3 @@
-# ip2geo
 IP/Domain name Geolocation lookup
 
 ##### Summary
