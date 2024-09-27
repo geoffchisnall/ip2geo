@@ -16,7 +16,9 @@ def ip_details(rawip):
             else:
                 ip = ipaddress.ip_address(rawip)
                 if (ip.version == 4) or (ip.version == 6):
-                    command = 'curl http://ipwhois.app/json/{%s} | jq \'"\(.continent) - \(.country) - \(.org)"\'' % (ip)
+                    #The below line broke. Had to make a change. Not sure what the cause is.
+                    #command = 'curl http://ipwhois.app/json/{%s} | jq \'"\(.continent) - \(.country) - \(.org)"\'' % (ip)
+                    command = 'curl http://ipwhois.app/json/{0} | jq -r \'"\\(.continent) - \\(.country) - \\(.org)"\''.format(ip)
                     runcommand = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
                     result = (runcommand.stdout)
                     print("%s: %s" % (ip,result))
@@ -26,7 +28,9 @@ def ip_details(rawip):
         lookupresult = subprocess.run(lookup, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         ip=(lookupresult.stdout)
         ip=ip.strip()
-        command = 'curl http://ipwhois.app/json/{%s} | jq \'"\(.continent) - \(.country) - \(.org)"\'' % (ip)
+        #The below line broke. Had to make a change. Not sure what the cause is.
+        #command = 'curl http://ipwhois.app/json/{%s} | jq \'"\(.continent) - \(.country) - \(.org)"\'' % (ip)
+        command = 'curl http://ipwhois.app/json/{0} | jq -r \'"\\(.continent) - \\(.country) - \\(.org)"\''.format(ip)
         runcommand = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         result = (runcommand.stdout)
         result = result.strip()
